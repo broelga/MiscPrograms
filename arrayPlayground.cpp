@@ -16,7 +16,7 @@ int main()
     output(hours, numOfEmployeesWorked);
 }
 
-int input(/* in */ int array[], /* inOut */ int limit)
+int input(/* in */ int array[], /* in */ int limit)
 {
     for (int index = 0 ; index < limit; index++)
     {
