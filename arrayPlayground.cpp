@@ -3,22 +3,22 @@
 #include <iostream>
 using namespace std;
 
-void input(/* in */ int[], /* in */ int &);
+int input(/* in */ int[], /* in */ const int);
 bool inputValidation(/* in */ int[], /* in */ int);
-void output(/* in */ int[], /* in */ int);
+void output(/* in */ const int[], /* in */ int);
 
 int main()
 {
-    int NUM_EMPLOYEES = 20;
+    const int NUM_EMPLOYEES = 20;
     int hours[NUM_EMPLOYEES];
 
-    input(hours, NUM_EMPLOYEES);
-    output(hours, NUM_EMPLOYEES);
+    int numOfEmployeesWorked = input(hours, NUM_EMPLOYEES);
+    output(hours, numOfEmployeesWorked);
 }
 
-void input(/* in */ int array[], /* inOut */ int &NUM_EMPLOYEES)
+int input(/* in */ int array[], /* inOut */ int limit)
 {
-    for (int index = 0; index < NUM_EMPLOYEES; index++)
+    for (int index = 0 ; index < limit; index++)
     {
         cout << "Enter number of hours worked for employed #" << (index + 1) << ", enter -1 to quit: ";
         cin >> array[index];
@@ -38,11 +38,10 @@ void input(/* in */ int array[], /* inOut */ int &NUM_EMPLOYEES)
         }
         else
         {
-            array[index] = 0;
-            NUM_EMPLOYEES = index;
-            break;
+            limit = index;
         }
     }
+    return limit;
 }
 
 bool inputValidation(/* in */ int array[], /* in */ int index)
@@ -61,7 +60,7 @@ bool inputValidation(/* in */ int array[], /* in */ int index)
     }
 }
 
-void output(/* in */ int array[], /* in */ int limit)
+void output(/* in */ const int array[], /* in */ int limit)
 {
     for (int index = 0; index < limit; index++)
     {
