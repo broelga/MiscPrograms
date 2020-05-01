@@ -5,7 +5,7 @@
 // a range given by user. The user can then write/read to/from file  *
 // as well as sorting the numbers in ascending and descending order. *
 // This program is also filled with some console-graphic stuff just  *
-// for asthetics.
+// for asthetics.                                                    *
 //********************************************************************
 
 #include <iostream>
