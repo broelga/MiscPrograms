@@ -1,7 +1,9 @@
 //********************************************************************
-// Program will create a file named by user and will generate        *
-// a sequentially numbered list using two numbers chosen by          *
-// the user.                                                         *
+// Program will create and/or open a file given by user.             *
+// A menu prompt will ask the user for a selection of options        *
+// available. The options include generating random numbers within   *
+// a range given by user. The user can then write/read to/from file  *
+// as well as sorting the numbers in ascending and descending order. *
 //********************************************************************
 
 #include <iostream>
@@ -29,7 +31,6 @@ void printArray(int[], int);
 
 int main()
 {
-    // Variables
     bool running = true;
     bool isValid;
     int minNum = 0, maxNum = 0;
@@ -41,9 +42,8 @@ int main()
     unsigned programCounter = 0;
 
     system("CLS");
-    while (running) // Begin program loop
+    while (running)
     {
-
         while (programCounter == 0)
         {
             getFilename(myFile, filename, programCounter);
@@ -52,10 +52,8 @@ int main()
 
         system("CLS");
 
-        // Display menu and get input
-
         header();
-        
+
         cout << "1. Enter filename\n"
              << "2. Generate random numbers\n"
              << "3. Print all the numbers.\n"
@@ -76,7 +74,6 @@ int main()
 
             if (choice > 0 && choice < 9)
             {
-
                 switch (choice)
                 {
                 case 1:
@@ -137,9 +134,11 @@ int main()
                     cin.clear();
                     cin.ignore(100, '\n');
                 }
+
                 cout << "Invalid choice. Please choose options 1 - 6.\n\n";
                 isValid = false;
             }
+
         } while (!isValid);
     }
 }
@@ -201,6 +200,7 @@ void getFilename(fstream &myFile, string &filename, unsigned &programCounter)
                 cin.get();
                 return;
             }
+
         } while (!fnGood);
 
         if (fileExists(filename))
@@ -218,9 +218,7 @@ void getFilename(fstream &myFile, string &filename, unsigned &programCounter)
                     openFile = true;
                 }
                 else
-                {
                     openFile = false;
-                }
             }
             else
             {
@@ -230,14 +228,14 @@ void getFilename(fstream &myFile, string &filename, unsigned &programCounter)
         }
         else
         {
-            myFile.open(filename, fstream::out); // Opens/creates file
+            myFile.open(filename, fstream::out);
 
             if (myFile.eof())
             {
                 myFile.clear();
                 myFile.seekg(0);
             }
-            else if (myFile.fail()) // Varifies file was opened/created, reprompts
+            else if (myFile.fail())
             {
                 for (int i = 0; i < 4; i++)
                 {
@@ -253,28 +251,32 @@ void getFilename(fstream &myFile, string &filename, unsigned &programCounter)
             else
                 myFile.seekg(0);
         }
+
     } while (myFile.fail() && !openFile);
 
     myFile.close();
+
     programCounter++;
 }
 
 bool fileExists(const string &filename)
 {
     struct stat buf;
+
     if (stat(filename.c_str(), &buf) != -1)
     {
         return true;
     }
+
     return false;
 }
 
 void getNumAndVerify(int someArray[], int arraySize, int minNum, int maxNum)
 {
+    bool dupDigit = false;
     int num1 = 0,
         num2 = 0,
         counter = 0;
-    bool dupDigit = false;
     srand(time(0));
 
     for (int i = 0; i < arraySize; i++)
@@ -282,14 +284,11 @@ void getNumAndVerify(int someArray[], int arraySize, int minNum, int maxNum)
         dupDigit = false;
         counter = 0;
 
-        // Assign random digit between 0 and arraySize to array[i]
         if (minNum < 0)
             someArray[i] = rand() % arraySize + minNum;
-
         else
             someArray[i] = rand() % arraySize + minNum;
 
-        // linear search for duplicate numbers
         while (!dupDigit && counter < i)
         {
             num1 = someArray[i];
@@ -300,6 +299,7 @@ void getNumAndVerify(int someArray[], int arraySize, int minNum, int maxNum)
                 dupDigit = true;
                 i--;
             }
+
             counter++;
         }
     }
@@ -310,6 +310,7 @@ void getNumAndVerify(int someArray[], int arraySize, int minNum, int maxNum)
         cout << someArray[i] << " "
              << flush;
     }
+
     cout << "\n\n";
 }
 
@@ -322,6 +323,7 @@ void getMinMaxNums(int &minNum, int &maxNum, int &arraySize)
         cout << "What is lowest number? ";
         cin >> minNum;
         cin.ignore(100, '\n');
+
         if (!minNum)
         {
             cout << "ERROR: That is not a number.\n";
@@ -335,12 +337,14 @@ void getMinMaxNums(int &minNum, int &maxNum, int &arraySize)
         cout << "What is the highest number? ";
         cin >> maxNum;
         cin.ignore(100, '\n');
+
         if (!maxNum)
         {
             cout << "ERROR: That's not a number.\n";
             cin.clear();
             cin.ignore(100, '\n');
         }
+
         if (maxNum && maxNum < minNum)
         {
             cout << "ERROR: Last number must be greater than the first.\n";
@@ -350,7 +354,6 @@ void getMinMaxNums(int &minNum, int &maxNum, int &arraySize)
 
     if (minNum < 0)
         arraySize = ((maxNum + 1) + (minNum * -1));
-
     else
         arraySize = ((maxNum + 1) - minNum);
 
@@ -391,9 +394,7 @@ void writeToFile(fstream &myFile, string filename, int someArray[], int size)
     }
 
     for (int i = 0; i < size; i++)
-    {
         myFile << someArray[i] << " ";
-    }
 
     this_thread::sleep_for(chrono::milliseconds(300));
     cout << " Operation complete!\n\n"
@@ -457,7 +458,7 @@ void readFromFile(fstream &myFile, string filename, int someArray[], int size)
     myFile.close();
 }
 
-void sortAscending(/* in */ int someArray[], /* in */ int size)
+void sortAscending(int someArray[], int size)
 {
     int start = 0,
         minIndex = 0,
@@ -465,18 +466,15 @@ void sortAscending(/* in */ int someArray[], /* in */ int size)
 
     while (start < size)
     {
-        // Begin function loop
         for (; start < size; start++)
         {
             system("CLS");
 
             header();
 
-            // Assign start and array[index] values
             minIndex = start,
             minValue = someArray[start];
 
-            // Sort function starting at array[1]
             for (unsigned index = start + 1; index < size; index++)
             {
                 if (someArray[index] < minValue)
@@ -485,20 +483,18 @@ void sortAscending(/* in */ int someArray[], /* in */ int size)
                     minIndex = index;
                 }
             }
-            // Swaps index of maxValue with start index
+
             swap(someArray[minIndex], someArray[start]);
 
             for (int i = 0; i < size; i++)
-            {
-                cout << someArray[i] << " "
-                     << flush;
-            }
+                cout << someArray[i] << " " << flush;
         }
     }
+
     cout << "\n\n";
 }
 
-void sortDescending(/* in */ int someArray[], /* in */ int size)
+void sortDescending(int someArray[], int size)
 {
     int start = 0,
         maxIndex = 0,
@@ -506,19 +502,15 @@ void sortDescending(/* in */ int someArray[], /* in */ int size)
 
     while (start < size)
     {
-
-        // Begin function loop
         for (; start < size; start++)
         {
             system("CLS");
 
             header();
 
-            // Assign start and array[index] values
             maxIndex = start,
             maxValue = someArray[start];
-
-            // Sort function starting at array[1]
+            /*  */
             for (unsigned index = start + 1; index < size; index++)
             {
                 if (someArray[index] > maxValue)
@@ -527,23 +519,18 @@ void sortDescending(/* in */ int someArray[], /* in */ int size)
                     maxIndex = index;
                 }
             }
-            // Swaps index of maxValue with start index
+
             swap(someArray[maxIndex], someArray[start]);
 
             for (int i = 0; i < size; i++)
-            {
-                cout << someArray[i] << " "
-                     << flush;
-            }
+                cout << someArray[i] << " " << flush;
         }
     }
     cout << "\n\n";
 }
 
-void swap(/* inOut */ int &element1, /* inOut */ int &element2)
+void swap(int &element1, int &element2)
 {
-    // Pre:     Temporary file is created assigned to the value of element1.
-    // Post:    Both element1 and element2 have swapped value and values are returned.
     int temp = element1;
 
     element1 = element2;
