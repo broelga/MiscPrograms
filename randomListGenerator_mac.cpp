@@ -135,7 +135,7 @@ int main()
                     cin.ignore(100, '\n');
                 }
 
-                cout << "Invalid choice. Please choose options 1 - 6.\n\n";
+                cout << "Invalid choice. Please choose options 1 - 8.\n\n";
                 isValid = false;
             }
 
