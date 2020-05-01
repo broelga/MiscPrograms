@@ -4,6 +4,8 @@
 // available. The options include generating random numbers within   *
 // a range given by user. The user can then write/read to/from file  *
 // as well as sorting the numbers in ascending and descending order. *
+// This program is also filled with some console-graphic stuff just  *
+// for asthetics.                                                    *
 //********************************************************************
 
 #include <iostream>
