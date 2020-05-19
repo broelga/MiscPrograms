@@ -103,7 +103,7 @@ int main()
         bool isValid;
 
         // Clears screen
-        system("CLS");
+        system("clear");
         // Deals cards to player and dealer
         dealCards(deck, playerHand, splitHand, dealerHand, HAND_SIZE, totalNumCardsDealt, numPlayerCards,
                   numPlayerCardsSplit, numDealerCards, playerSum, playerSumSplit, dealerSum);
