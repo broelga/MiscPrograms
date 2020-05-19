@@ -91,7 +91,6 @@ int main()
 {
     while (running)
     {
-        // Clears screen
         const int HAND_SIZE = 10;
         int deck[g_DECK_SIZE][g_COL];
         int playerHand[HAND_SIZE][g_COL] = {0};
@@ -103,7 +102,9 @@ int main()
         unsigned choice;
         bool isValid;
 
-        system("clear");
+        // Clears screen
+        system("CLS");
+        // Deals cards to player and dealer
         dealCards(deck, playerHand, splitHand, dealerHand, HAND_SIZE, totalNumCardsDealt, numPlayerCards,
                   numPlayerCardsSplit, numDealerCards, playerSum, playerSumSplit, dealerSum);
 
