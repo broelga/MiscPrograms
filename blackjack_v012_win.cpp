@@ -79,10 +79,8 @@ void declareWinner(int &, int &, int &);
 void playAgain();
 
 //**************************************************************************************************************************************************************************
-// 3rd array created for splitHand and is functioning.
+// 3rd array created for splitHand and is functioning. // Might be better to add a new row and col for the split hand (complex
 // TODO: Change A to 1 if dealt a card that busts
-// TODO: Focus on getting the game to play correctly. Get the play loop running. IT'S RUNNING
-// TODO: Maybe start cleaning up the UI. The system("CLS") function gets a bit messy. Otherwise, it's playable, just not pretty.
 
 // Do this once they game is playable. Don't get too carried away.
 // TODO: Split needs to actually split. The card in playerHand[1][0]/[1][1] must be transferred to split[0]0]/[0][1].
@@ -93,8 +91,6 @@ int main()
 {
     while (running)
     {
-        // Clears screen
-
         const int HAND_SIZE = 10;
         int deck[g_DECK_SIZE][g_COL];
         int playerHand[HAND_SIZE][g_COL] = {0};
@@ -106,7 +102,9 @@ int main()
         unsigned choice;
         bool isValid;
 
+        // Clears screen
         system("CLS");
+        // Deals cards to player and dealer
         dealCards(deck, playerHand, splitHand, dealerHand, HAND_SIZE, totalNumCardsDealt, numPlayerCards,
                   numPlayerCardsSplit, numDealerCards, playerSum, playerSumSplit, dealerSum);
 
