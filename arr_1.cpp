@@ -32,12 +32,11 @@ int main()
 {
     // Declare array variable
     int array[ARR_SIZE];
-    bool containsNegatives = false;
 
     // Call functions
     generateArray(array, ARR_SIZE);
-    containsNegatives = noNegatives(array, ARR_SIZE);
-    if (noNegatives(array, ARR_SIZE))
+    
+    if (!noNegatives(array, ARR_SIZE))
     {
         cout << "There are negative numbers in this list.\n\n";
         absoluteValues(array, ARR_SIZE);
@@ -77,7 +76,7 @@ bool noNegatives(const int array[], int arrSize)
 {
     // Declare local variable
     unsigned negNums = 0;
-    bool hasNegNums = false;
+    bool noNegatives = true;
 
     for (int i = 0; i < arrSize; i++)
     {
@@ -87,9 +86,9 @@ bool noNegatives(const int array[], int arrSize)
 
     // If there are any negative numbers in the array, set flag to true.
     if (negNums > 0)
-        hasNegNums = true;
+        noNegatives = false;
 
-    return hasNegNums;
+    return noNegatives;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -109,27 +108,27 @@ void absoluteValues(int array[], int arrSize)
 /* Sample Output:
 
 The list contains the following numbers:
-12
--7
-20
+6
+17
+-8
+-5
+-13
+-16
 -11
+-3
+-16
 4
-2
--10
--18
--19
--4
 There are negative numbers in this list.
 
 The list now contains all positive numbers:
-12
-7
-20
+6
+17
+8
+5
+13
+16
 11
-4
-2
-10
-18
-19
+3
+16
 4
 */
